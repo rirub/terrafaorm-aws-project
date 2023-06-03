@@ -41,7 +41,12 @@ resource "aws_subnet" "private_subnet" {
 
 resource "aws_route_table" "pub_rt" {
   vpc_id = aws_vpc.vpc.id
-
+  route {
+      cidr_block = "0.0.0.0/0"
+      gateway_id = aws_internet_gateway.igw.id
+      # 이 라우트 룰이 igw로 나가게된는 의미
+      # 0.0.0.0/0 : 외부 아웃바운드
+    }
   tags = {
     Name = "${var.tags}-${var.region}-rt-pub"
   }
@@ -55,11 +60,6 @@ resource "aws_route_table" "pri_rt" {
   }
 }
 
-# resource "aws_route_table_association" "route_table_association_public" {
-#   # subnet_id      = values(aws_subnet.public_subnet).*.id
-#   subnet_id = aws_subnet.public_subnet.*.id
-#   route_table_id = aws_route_table.pub_rt.id
-# }
 
 resource "aws_route_table_association" "public_subnet_association" {
   for_each        = aws_subnet.public_subnet
@@ -74,12 +74,3 @@ resource "aws_route_table_association" "private_subnet_association" {
   route_table_id = aws_route_table.pri_rt.id
 }
 
-# resource "aws_route_table_association" "assoc_public_routes" {
-#   count          = length(var.public_subnet.public_subnets)
-#   subnet_id      = element(aws_subnet.public_subnet.*.id, count.index)
-#   route_table_id = aws_route_table.pub_rt.id
-# }
-
-# output "pub_subnet_length" {
-#   value = length(var.public_subnet.*.public_subnet)
-# }
