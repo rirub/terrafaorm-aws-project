@@ -1,5 +1,5 @@
 resource "aws_lb" "alb" {
-  name               = "key-alb"         # 원하는 ALB 이름으로 변경해주세요.
+  name               = "key-alb-${var.networking.vpc_name}"         # 원하는 ALB 이름으로 변경해주세요.
   internal           = false            # 내부 또는 외부 로드 밸런서로 변경할 경우 수정해주세요.
   load_balancer_type = "application"    # 로드 밸런서 유형을 변경할 경우 수정해주세요.
   security_groups    = [aws_security_group.public_SG.id]
@@ -12,7 +12,7 @@ resource "aws_lb" "alb" {
 
 
 resource "aws_lb_target_group" "alb_target_group" {
-  name     = "key-target-group"
+  name     = "key-target-group-${var.networking.vpc_name}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.my_vpc.id

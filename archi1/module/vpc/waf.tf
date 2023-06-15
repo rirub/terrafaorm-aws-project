@@ -1,12 +1,12 @@
 resource "aws_wafv2_ip_set" "ip_blacklist" {
-  name               = "ip-blacklist"
+  name               = "ip-blacklist-${var.networking.vpc_name}"
   scope              = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["11.22.333.444/32"]
+  addresses          = ["11.22.33.44/32"]
 }
 
 resource "aws_wafv2_web_acl" "firewall" {
-  name = "firewall"
+  name = "firewall-${var.networking.vpc_name}"
 
   scope = "REGIONAL"
 

@@ -17,7 +17,7 @@ terraform.rc
 architecture1/module/EC2/ey_key
 architecture1/module/EC2/ey_key.pub
 
-aws-archi1/
+architecture1/
 
 archi1/module/vpc/ey_key
 archi1/module/vpc/ey_key.pub

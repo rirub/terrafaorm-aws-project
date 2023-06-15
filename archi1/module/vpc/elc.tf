@@ -17,12 +17,12 @@ resource "aws_security_group" "cache" {
 # }
 
 resource "aws_elasticache_subnet_group" "cache" {
-  name       = "key-cache-subnet-group"
+  name       = "key-cache-subnet-group-${var.networking.vpc_name}"
   subnet_ids = aws_subnet.private_subnets[*].id
 }
 
 resource "aws_elasticache_cluster" "example" {
-  cluster_id           = "key-cache"
+  cluster_id           = "key-cache-${var.networking.vpc_name}"
   engine               = "memcached"
   node_type            = "cache.t2.micro"  # 원하는 노드 유형으로 변경하세요.
   num_cache_nodes      = 1

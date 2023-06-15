@@ -1,5 +1,5 @@
 resource "aws_db_subnet_group" "key_db_subnet_group" {
-  name       = "key_db_subnet_group"
+  name       = "key_db_subnet_group-${var.networking.vpc_name}"
   subnet_ids = aws_subnet.private_subnets[*].id
   tags = {
     Name = "example-db-subnet-group"
@@ -10,7 +10,7 @@ resource "aws_db_subnet_group" "key_db_subnet_group" {
 resource "aws_db_instance" "key_db_instance" {
   skip_final_snapshot         = true
   # final_snapshot_identifier   = "example-final-snapshot"
-  identifier                = "key-db-instance"
+  identifier                = "key-db-instance-${var.networking.vpc_name}"
   allocated_storage         = 20
   storage_type              = "gp2"
   engine                    = "mysql"

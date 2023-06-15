@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "key_lc" {
-  name                 = "key-launch-configuration"
+  name                 = "key-launch-configuration-${var.networking.vpc_name}"
   image_id             = "ami-0e05f79e46019bfac"  # AMI ID를 입력하세요.
   instance_type        = "t2.micro"     # 인스턴스 유형을 선택하세요.
   security_groups      = [aws_security_group.public_SG.id]  # 보안 그룹 ID를 입력하세요.
@@ -26,7 +26,7 @@ resource "aws_launch_configuration" "key_lc" {
 # }
 
 resource "aws_autoscaling_group" "key_asg" {
-  name                 = "key-asg"
+  name                 = "key-asg-${var.networking.vpc_name}"
   launch_configuration = aws_launch_configuration.key_lc.id
   min_size             = 2
   max_size             = 4
@@ -35,7 +35,7 @@ resource "aws_autoscaling_group" "key_asg" {
 
   tag {
     key                 = "Name"
-    value               = "key-asg"
+    value               = "key-asg-${var.networking.vpc_name}"
     propagate_at_launch = true
   }
 }
