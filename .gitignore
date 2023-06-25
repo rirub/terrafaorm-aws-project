@@ -21,3 +21,7 @@ architecture1/
 
 archi1/module/vpc/ey_key
 archi1/module/vpc/ey_key.pub
+
+
+archi2/ey_key
+archi2/ey_key.pub
