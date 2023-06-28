@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "alb_target_group" {
   vpc_id   = aws_vpc.my_vpc.id
 
   health_check {
-    path                = "/health"
+    path                = "/"
     interval            = 30
     timeout             = 10
     healthy_threshold   = 3
